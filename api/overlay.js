@@ -10,17 +10,19 @@ module.exports = async (req, res) => {
     const bgBuf   = await (await fetch(background_url)).buffer();
     const logoBuf = await (await fetch(logo_url)).buffer();
 
-    const svg = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350">
-        <rect x="0" y="820" width="1080" height="200" fill="rgba(0,0,0,0.5)" />
-        <style>
-          .title    { fill:#FFF; font-size:64px; font-family:sans-serif; text-anchor:middle }
-          .subtitle { fill:#FFF; font-size:48px; font-family:sans-serif; text-anchor:middle }
-        </style>
-        <text x="540" y="900" class="title">${title}</text>
-        <text x="540" y="970" class="subtitle">${subtitle}</text>
-      </svg>
-    `;
+const svg = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350">
+    <!-- Halbtransparenter Hintergrund für bessere Lesbarkeit -->
+    <rect x="0" y="820" width="1080" height="200" fill="rgba(0,0,0,0.5)" />
+    <style>
+      .title    { fill:#FFF; font-size:64px; font-family:sans-serif; text-anchor:middle; }
+      .subtitle { fill:#FFF; font-size:48px; font-family:sans-serif; text-anchor:middle; }
+    </style>
+    <text x="540" y="900" class="title">${title}</text>
+    <text x="540" y="970" class="subtitle">${subtitle}</text>
+  </svg>
+`;
+
 
     const outBuffer = await sharp(bgBuf)
       .composite([
